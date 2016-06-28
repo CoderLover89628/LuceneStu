@@ -23,7 +23,7 @@ import org.apache.lucene.store.LockObtainFailedException;
 import org.apache.lucene.util.Version;
 
 /**
- * lucene³õÑ§
+ * luceneåˆå­¦
  * 
  * @author JZ
  *
@@ -33,34 +33,38 @@ public class HelloLucene {
 	private String filePath = "F:/Lucence";
 	
 	/**
-	 * ½¨Á¢Ë÷Òı
+	 * å»ºç«‹ç´¢å¼•
 	 * 
-	 * ¹ı³Ì£º
-	 * 1.´´½¨DirectoryÁ½ÖÖ·½Ê½£º
-	 *  					¢Ù´´½¨ÔÚÄÚ´æÖĞ£ºDirectory directoryRAM = new RAMDirectory();
-	 *                      ¢Ú´´½¨ÔÚÓ²ÅÌÉÏ£ºDirectory directoryFSD = FSDirectory.open(new File(filePath + "/index"));// ½¨Á¢ÔÚÓ²ÅÌÉÏ
-	 * 2.´´½¨IndexWriter
-	 * 3.´´½¨Document:Ïàµ±ÓÚÊı¾İ¿âÖĞ£¬±íµÄÒ»Ìõ¼ÇÂ¼
-	 * 4.ÎªDocumentÌí¼ÓField:FieldÏàµ±ÓÚ±íÖĞµÄÒ»¸ö×Ö¶Î
-	 * 						¶ÔField.Store.YES»òNOµÄËµÃ÷£¨´æ´¢ÓòÑ¡Ïî£©£º
-	 * 						¢ÙÉèÖÃÎªYESÊ±£¬±íÊ¾°ÑÕâ¸öÓòÖĞµÄÄÚÈİÍêÈ«µÄ´æ´¢µ½ÎÄ¼ş£¨luceneÎÄ¼ş£©ÖĞ£¬·½±ã½øĞĞÎÄ±¾µÄ»¹Ô­£¬¼´£¬²éÕÒÊ±£¬Ö±½Ó´ÓluceneÎÄ¼şÖĞ²éÑ¯
-	 * 						¢ÚÉèÖÃÎªNOÊ±£¬±íÊ¾²»°ÑÕâ¸öÓòÖĞµÄÄÚÈİ´æ´¢µ½ÎÄ¼şÖĞ£¬µ«ÊÇ¿ÉÒÔ±»Ë÷Òı
-	 * 						¶ÔField.IndexµÄËµÃ÷£¨Ë÷ÒıÑ¡Ïî£©£º
-	 * 						¢ÙIndex.ANALYZED:½øĞĞ·Ö´ÊºÍË÷Òı£¬ÊÊÓ¦ÓÚ±êÌâ¡¢ÄÚÈİµÈ
-	 * 						¢ÚIndex.NOT_ANALYZED:½øĞĞË÷Òı£¬µ«²»½øĞĞ·Ö´Ê£¬Èç¹ûÉí·İÖ¤ºÅÂë£¬ĞÕÃû£¬IDµÈ£¬ÊÊÓÃÓÚ¾«È·ËÑË÷
-	 * 						¢ÛIndex.ANALYZED_NOT_NORMS:½øĞĞ·Ö´Êµ«ÊÇ²»´æ´¢normsĞÅÏ¢£¬Õâ¸önormsÖĞ°üÀ¨ÁË´´½¨Ë÷ÒıµÄÊ±¼äºÍÈ¨ÖµµÈĞÅÏ¢
-	 * 						¢ÜIndex.NOT_ANALYZED_NOT_NORMS:¼È²»·Ö´ÊÒ²²»½øĞĞnormsĞÅÏ¢´æ´¢
-	 * 						¢İIndex.NO²»½øĞĞË÷Òı
-	 * 5.Í¨¹ıIndexWriterÌí¼ÓÎÄµµµ½Ë÷ÒıÖĞ
-	 * 6.¹Ø±ÕindexWriter
+	 * è¿‡ç¨‹ï¼š
+	 * 1.åˆ›å»ºDirectoryä¸¤ç§æ–¹å¼ï¼š
+	 *  					â‘ åˆ›å»ºåœ¨å†…å­˜ä¸­ï¼šDirectory directoryRAM = new RAMDirectory();
+	 *                      â‘¡åˆ›å»ºåœ¨ç¡¬ç›˜ä¸Šï¼šDirectory directoryFSD = FSDirectory.open(new File(filePath + "/index"));// å»ºç«‹åœ¨ç¡¬ç›˜ä¸Š
+	 * 2.åˆ›å»ºIndexWriter:ä»¥æ­¤æ¥å†™ç´¢å¼•
 	 * 
-	 * Â·¾¶£º
-	 * ½«F:/LucencÄ¿Â¼ÏÂµÄÎÄµµ½¨Á¢Ë÷Òı
+	 * 3.åˆ›å»ºDocument:ç›¸å½“äºæ•°æ®åº“ä¸­ï¼Œè¡¨çš„ä¸€æ¡è®°å½•
 	 * 
-	 * ×¢Òâµã£º
-	 * ½¨Á¢Ë÷ÒıµÄÂ·¾¶£¬Ò»¶¨²»ÄÜÊÇÎÄ¼ş´æÔÚµÄÂ·¾¶£¬¼´£¬ÏÂÃæµÄinputµÄÂ·¾¶£¨ÎÄµµ´æÔÚµÄÂ·¾¶£©£¬
-	 * ·ñÔò»á³öÏÖ[java.io.FileNotFoundException: F:\Lucence\input\index (¾Ü¾ø·ÃÎÊ¡£)]
-	 * Ô­Òò£º½¨Á¢Ë÷ÒıĞèÒªÔÚÎÄ¼şÏÂ½øĞĞĞ´µÄ²Ù×÷£¬±éÀúÎÄ¼şÊ±»á³ö´í
+	 * 4.ä¸ºDocumentæ·»åŠ Field:Fieldç›¸å½“äºè¡¨ä¸­çš„ä¸€ä¸ªå­—æ®µ
+	 * 						å¯¹Field.Store.YESæˆ–NOçš„è¯´æ˜ï¼ˆå­˜å‚¨åŸŸé€‰é¡¹ï¼‰ï¼š
+	 * 						â‘ è®¾ç½®ä¸ºYESæ—¶ï¼Œè¡¨ç¤ºæŠŠè¿™ä¸ªåŸŸä¸­çš„å†…å®¹å®Œå…¨çš„å­˜å‚¨åˆ°æ–‡ä»¶ï¼ˆluceneæ–‡ä»¶ï¼‰ä¸­ï¼Œæ–¹ä¾¿è¿›è¡Œæ–‡æœ¬çš„è¿˜åŸï¼Œå³ï¼ŒæŸ¥æ‰¾æ—¶ï¼Œç›´æ¥ä»luceneæ–‡ä»¶ä¸­æŸ¥è¯¢
+	 * 						â‘¡è®¾ç½®ä¸ºNOæ—¶ï¼Œè¡¨ç¤ºä¸æŠŠè¿™ä¸ªåŸŸä¸­çš„å†…å®¹å­˜å‚¨åˆ°æ–‡ä»¶ä¸­ï¼Œä½†æ˜¯å¯ä»¥è¢«ç´¢å¼•
+	 * 						å¯¹Field.Indexçš„è¯´æ˜ï¼ˆç´¢å¼•é€‰é¡¹ï¼‰ï¼š
+	 * 						â‘ Index.ANALYZED:è¿›è¡Œåˆ†è¯å’Œç´¢å¼•ï¼Œé€‚åº”äºæ ‡é¢˜ã€å†…å®¹ç­‰
+	 * 						â‘¡Index.NOT_ANALYZED:è¿›è¡Œç´¢å¼•ï¼Œä½†ä¸è¿›è¡Œåˆ†è¯ï¼Œå¦‚æœèº«ä»½è¯å·ç ï¼Œå§“åï¼ŒIDç­‰ï¼Œé€‚ç”¨äºç²¾ç¡®æœç´¢
+	 * 						â‘¢Index.ANALYZED_NOT_NORMS:è¿›è¡Œåˆ†è¯ä½†æ˜¯ä¸å­˜å‚¨normsä¿¡æ¯ï¼Œè¿™ä¸ªnormsä¸­åŒ…æ‹¬äº†åˆ›å»ºç´¢å¼•çš„æ—¶é—´å’Œæƒå€¼ç­‰ä¿¡æ¯
+	 * 						â‘£Index.NOT_ANALYZED_NOT_NORMS:æ—¢ä¸åˆ†è¯ä¹Ÿä¸è¿›è¡Œnormsä¿¡æ¯å­˜å‚¨
+	 * 						â‘¤Index.NOä¸è¿›è¡Œç´¢å¼•
+	 * 
+	 * 5.é€šè¿‡IndexWriteræ·»åŠ æ–‡æ¡£åˆ°ç´¢å¼•ä¸­
+	 * 
+	 * 6.å…³é—­indexWriter
+	 * 
+	 * è·¯å¾„ï¼š
+	 * å°†F:/Lucencç›®å½•ä¸‹çš„æ–‡æ¡£å»ºç«‹ç´¢å¼•
+	 * 
+	 * æ³¨æ„ç‚¹ï¼š
+	 * å»ºç«‹ç´¢å¼•çš„è·¯å¾„ï¼Œä¸€å®šä¸èƒ½æ˜¯æ–‡ä»¶å­˜åœ¨çš„è·¯å¾„ï¼Œå³ï¼Œä¸‹é¢çš„inputçš„è·¯å¾„ï¼ˆæ–‡æ¡£å­˜åœ¨çš„è·¯å¾„ï¼‰ï¼Œ
+	 * å¦åˆ™ä¼šå‡ºç°[java.io.FileNotFoundException: F:\Lucence\input\index (æ‹’ç»è®¿é—®ã€‚)]
+	 * åŸå› ï¼šå»ºç«‹ç´¢å¼•éœ€è¦åœ¨æ–‡ä»¶ä¸‹è¿›è¡Œå†™çš„æ“ä½œï¼Œéå†æ–‡ä»¶æ—¶ä¼šå‡ºé”™
 	 * 
 	 */
 	public void index() {
@@ -68,20 +72,20 @@ public class HelloLucene {
 		IndexWriter writer = null;
 		try {
 			
-			// ´´½¨Directory
-			//Directory directoryRAM = new RAMDirectory();//½¨Á¢ÔÚÄÚ´æÖĞ
-			Directory directoryFSD = FSDirectory.open(new File(filePath + "/index"));// ½¨Á¢ÔÚÓ²ÅÌÉÏ,×¢Òâµã£º½¨Á¢Ë÷ÒıµÄÂ·¾¶Ò»¶¨²»ÄÜÊÇÎÄ¼ş´æÔÚµÄÂ·¾¶
-			// ¼´£¬ÏÂÃæµÄinputµÄÂ·¾¶£¬·ñÔò»á³öÏÖ[java.io.FileNotFoundException: F:\Lucence\input\index (¾Ü¾ø·ÃÎÊ¡£)]
-			// Ô­Òò£º½¨Á¢Ë÷ÒıĞèÒªÔÚÎÄ¼şÏÂ½øĞĞ¶ÁµÄ²Ù×÷£¬±éÀúÎÄ¼şÊ±»á³ö´í
+			// åˆ›å»ºDirectory
+			//Directory directoryRAM = new RAMDirectory();//å»ºç«‹åœ¨å†…å­˜ä¸­
+			Directory directoryFSD = FSDirectory.open(new File(filePath + "/index"));// å»ºç«‹åœ¨ç¡¬ç›˜ä¸Š,æ³¨æ„ç‚¹ï¼šå»ºç«‹ç´¢å¼•çš„è·¯å¾„ä¸€å®šä¸èƒ½æ˜¯æ–‡ä»¶å­˜åœ¨çš„è·¯å¾„
+			// å³ï¼Œä¸‹é¢çš„inputçš„è·¯å¾„ï¼Œå¦åˆ™ä¼šå‡ºç°[java.io.FileNotFoundException: F:\Lucence\input\index (æ‹’ç»è®¿é—®ã€‚)]
+			// åŸå› ï¼šå»ºç«‹ç´¢å¼•éœ€è¦åœ¨æ–‡ä»¶ä¸‹è¿›è¡Œè¯»çš„æ“ä½œï¼Œéå†æ–‡ä»¶æ—¶ä¼šå‡ºé”™
 			
-			// ´´½¨IndexWriter
+			// åˆ›å»ºIndexWriter
 			IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_35, new StandardAnalyzer(Version.LUCENE_35));
 			writer = new IndexWriter(directoryFSD, iwc);
 			
-			// ´´½¨Document
+			// åˆ›å»ºDocument
 			Document doc = null;
 			
-			// ÎªDocumentÌí¼ÓField
+			// ä¸ºDocumentæ·»åŠ Field
 			File file = new File(filePath + "/input");
 			for(File f : file.listFiles()) {
 				doc = new Document();
@@ -89,7 +93,7 @@ public class HelloLucene {
 				doc.add(new Field("fileName", f.getName(),Field.Store.YES,Field.Index.NOT_ANALYZED));
 				doc.add(new Field("path", f.getAbsolutePath(),Field.Store.YES,Field.Index.NOT_ANALYZED));
 				
-				// Í¨¹ıIndexWriterÌí¼ÓÎÄµµµ½Ë÷ÒıÖĞ
+				// é€šè¿‡IndexWriteræ·»åŠ æ–‡æ¡£åˆ°ç´¢å¼•ä¸­
 				writer.addDocument(doc);
 			}
 		} catch (CorruptIndexException e) {
@@ -115,53 +119,53 @@ public class HelloLucene {
 	}
 	
 	/**
-	 *  ´´½¨ËÑË÷
+	 *  åˆ›å»ºæœç´¢
 	 *  
-	 *  ¹ı³Ì£º
-	 *  1.´´½¨Directory:Á½ÖÖ·½Ê½£º
-	 *  					¢Ù´´½¨ÔÚÄÚ´æÖĞ£ºDirectory directoryRAM = new RAMDirectory();
-	 *                      ¢Ú´´½¨ÔÚÓ²ÅÌÉÏ£ºDirectory directoryFSD = FSDirectory.open(new File(filePath + "/index"));// ½¨Á¢ÔÚÓ²ÅÌÉÏ
-	 *  2.´´½¨IndexReader
-	 *  3.¸ù¾İIndexReader´´½¨IndexSearcher
-	 *  4.¸ù¾İQueryParser´´½¨ËÑË÷µÄQuery£ºÁ½²½£º
-	 *  								¢Ù´´½¨QueryParser¶ÔÏó£¬È·¶¨ËÑË÷µÄÄÚÈİ£º
+	 *  è¿‡ç¨‹ï¼š
+	 *  1.åˆ›å»ºDirectory:ä¸¤ç§æ–¹å¼ï¼š
+	 *  					â‘ åˆ›å»ºåœ¨å†…å­˜ä¸­ï¼šDirectory directoryRAM = new RAMDirectory();
+	 *                      â‘¡åˆ›å»ºåœ¨ç¡¬ç›˜ä¸Šï¼šDirectory directoryFSD = FSDirectory.open(new File(filePath + "/index"));// å»ºç«‹åœ¨ç¡¬ç›˜ä¸Š
+	 *  2.åˆ›å»ºIndexReader
+	 *  3.æ ¹æ®IndexReaderåˆ›å»ºIndexSearcher
+	 *  4.æ ¹æ®QueryParseråˆ›å»ºæœç´¢çš„Queryï¼šä¸¤æ­¥ï¼š
+	 *  								â‘ åˆ›å»ºQueryParserå¯¹è±¡ï¼Œç¡®å®šæœç´¢çš„å†…å®¹ï¼š
 	 *  									QueryParser queryParser = new QueryParser(Version.LUCENE_35, "content", new StandardAnalyzer(Version.LUCENE_35));
-	 *  								¢Ú´´½¨Query¶ÔÏó£¬±íÊ¾ÓòÎªcontentÖĞ°üº¬¡°mvn¡±µÄÎÄµµ£ºQuery query = queryParser.parse("mvn");
-	 *  5.¸ù¾İSearcherËÑË÷²¢·µ»ØTopDocsµÄÎÄµµ
-	 *  6.¸ù¾İTopDocs»ñÈ¡ScoreDoc¶ÔÏó
-	 *  7.¸ù¾İsearcherºÍScoreDoc¶ÔÏó»ñÈ¡¾ßÌåµÄDocument¶ÔÏó
-	 *  8.¸ù¾İDocument¶ÔÏó»ñÈ¡ËùĞèÒªµÄÖµ
-	 *  9.¹Ø±Õreader
+	 *  								â‘¡åˆ›å»ºQueryå¯¹è±¡ï¼Œè¡¨ç¤ºåŸŸä¸ºcontentä¸­åŒ…å«â€œmvnâ€çš„æ–‡æ¡£ï¼šQuery query = queryParser.parse("mvn");
+	 *  5.æ ¹æ®Searcheræœç´¢å¹¶è¿”å›TopDocsçš„æ–‡æ¡£
+	 *  6.æ ¹æ®TopDocsè·å–ScoreDocå¯¹è±¡
+	 *  7.æ ¹æ®searcherå’ŒScoreDocå¯¹è±¡è·å–å…·ä½“çš„Documentå¯¹è±¡
+	 *  8.æ ¹æ®Documentå¯¹è±¡è·å–æ‰€éœ€è¦çš„å€¼
+	 *  9.å…³é—­reader
 	 */
 	public void search() {
 		
 		try {
-			// ´´½¨Directory
-			Directory directoryFSD = FSDirectory.open(new File(filePath + "/index"));// ½¨Á¢ÔÚÓ²ÅÌÉÏ
+			// åˆ›å»ºDirectory
+			Directory directoryFSD = FSDirectory.open(new File(filePath + "/index"));// å»ºç«‹åœ¨ç¡¬ç›˜ä¸Š
 			
-			// ´´½¨IndexReader
+			// åˆ›å»ºIndexReader
 			IndexReader reader = IndexReader.open(directoryFSD);
 			
-			// ¸ù¾İIndexReader´´½¨IndexSearcher
+			// æ ¹æ®IndexReaderåˆ›å»ºIndexSearcher
 			IndexSearcher searcher = new IndexSearcher(reader);
 			
-			// ¸ù¾İQueryParser´´½¨ËÑË÷µÄQuery
+			// æ ¹æ®QueryParseråˆ›å»ºæœç´¢çš„Query
 			QueryParser queryParser = new QueryParser(Version.LUCENE_35, "content", new StandardAnalyzer(Version.LUCENE_35));
-			Query query = queryParser.parse("mvn");
+			Query query = queryParser.parse("int");
 			
-			// ¸ù¾İSearcherËÑË÷²¢·µ»ØTopDocsµÄÎÄµµ
-			TopDocs tds = searcher.search(query, 10);//Ö»³öÏÖ10Ìõ¼ÇÂ¼
+			// æ ¹æ®Searcheræœç´¢å¹¶è¿”å›TopDocsçš„æ–‡æ¡£
+			TopDocs tds = searcher.search(query, 10);//åªå‡ºç°10æ¡è®°å½•
 			
-			// ¸ù¾İTopDocs»ñÈ¡ScoreDoc¶ÔÏó
+			// æ ¹æ®TopDocsè·å–ScoreDocå¯¹è±¡
 			ScoreDoc[] sds = tds.scoreDocs;
 			for(ScoreDoc sd : sds) {
-				// ¸ù¾İsearcherºÍScoreDoc¶ÔÏó»ñÈ¡¾ßÌåµÄDocument¶ÔÏó
+				// æ ¹æ®searcherå’ŒScoreDocå¯¹è±¡è·å–å…·ä½“çš„Documentå¯¹è±¡
 				Document doc = searcher.doc(sd.doc);
-				// ¸ù¾İDocument¶ÔÏó»ñÈ¡ËùĞèÒªµÄÖµ
-				System.out.println("ÎÄ¼şÃû£º" + doc.get("fileName") + "\n" + "Â·¾¶£º" + doc.get("path"));
+				// æ ¹æ®Documentå¯¹è±¡è·å–æ‰€éœ€è¦çš„å€¼
+				System.out.println("æ–‡ä»¶åï¼š" + doc.get("fileName") + "\n" + "è·¯å¾„ï¼š" + doc.get("path"));
 			}
 			
-			// ¹Ø±Õreader
+			// å…³é—­reader
 			reader.close();
 		} catch (IOException e) {
 

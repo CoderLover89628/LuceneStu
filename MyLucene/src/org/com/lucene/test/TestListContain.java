@@ -7,6 +7,7 @@ import java.util.Map;
 
 public class TestListContain {
 
+
 	/**
 	 * @param args
 	 */
@@ -16,16 +17,17 @@ public class TestListContain {
 		List<String> sList = new ArrayList<String>();
 		
 		if(!sList.contains("a")) {
-			System.out.println("°üº¬£¡");
+			System.out.println("åŒ…å«ï¼");
 			sList.add("a");
 			System.out.println(sList.contains("aa"));
 		} 
 		
-		System.out.println("²»°üº¬£¡");
+		System.out.println("ä¸åŒ…å«ï¼");
 		List<String> ssList = new ArrayList<String>();
 		Map<String,List<String>> hasMap = new HashMap<String, List<String>>();
 		hasMap.put("nice", ssList);
 		System.out.println(hasMap.get(hasMap.keySet()));
 	}
+
 
 }

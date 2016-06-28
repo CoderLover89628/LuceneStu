@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="mmseg4j-all-1.8.5">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/mmseg4j-all-1.8.5.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
